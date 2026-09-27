@@ -63,9 +63,9 @@ export function saltForGh(tapGh: number, targetGh: number, totalL: number): Salt
   const need = targetGh - tapGh;
   const pick = GH_SALTS[0];
   const dose: SaltDose = {
-    grams: need * totalL,
+    grams: (need * totalL) / pick.ghPerGramPerL,
     salt: pick.salt,
-    ghPerGramPerL: 1,
+    ghPerGramPerL: pick.ghPerGramPerL,
     applicable: '目标 GH 高于自来水时适用（矿物盐升 GH，不影响或轻微影响 KH）',
   };
   return dose;
