@@ -120,12 +120,20 @@ describe('水质与设备页', () => {
 
     expect(screen.getByTestId('ro-result')).toBeInTheDocument();
     expect(screen.queryByTestId('salt-result')).toBeNull();
+    expect(screen.getByTestId('ro-result').textContent).toMatch(
+      /自来水\s*55\.8L\s*\+\s*RO 纯水\s*27\.9L/,
+    );
+    expect(screen.getByTestId('ro-result').textContent).toContain('RO 占 33%');
 
     const target = screen.getByTestId('target-gh');
     await userEvent.clear(target);
     await userEvent.type(target, '18');
     expect(screen.getByTestId('salt-result')).toBeInTheDocument();
     expect(screen.queryByTestId('ro-result')).toBeNull();
+    const saltText = screen.getByTestId('salt-result').textContent!;
+    expect(saltText).toContain('1004.40g');
+    expect(saltText).toContain('每克每升');
+    expect(saltText).toContain('0.5 度');
   });
 
   it('CO₂ 输出带估算标注与目标 pH', async () => {

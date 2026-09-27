@@ -60,6 +60,22 @@ describe('GH 调配（验收：20 组用例，公式一致，方向正确）', (
     expect(roMixForGh(tapGh, targetGh, totalL)).toBeNull();
   });
 
+  it('降 GH 时自来水与 RO 的升数按各自占比对应，不能互换', () => {
+    const ro = roMixForGh(12, 8, 90)!;
+    expect(ro.roRatio).toBeCloseTo(1 / 3, 9);
+    expect(ro.tapRatio).toBeCloseTo(2 / 3, 9);
+    expect(ro.tapL).toBeCloseTo(60, 9);
+    expect(ro.roL).toBeCloseTo(30, 9);
+  });
+
+  it('无水氯化钙按每克每升 0.5 dGH 计算用量', () => {
+    const salt = saltForGh(12, 18, 100)!;
+    expect(salt.salt).toContain('CaCl₂(无水)');
+    expect(salt.ghPerGramPerL).toBe(0.5);
+    expect(salt.grams).toBeCloseTo((6 * 100) / 0.5, 9);
+    expect(salt.grams).toBeCloseTo(1200, 9);
+  });
+
   it('目标=自来水：两个方案都不给', () => {
     expect(roMixForGh(10, 10, 100)).toBeNull();
     expect(saltForGh(10, 10, 100)).toBeNull();

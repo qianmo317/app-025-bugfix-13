@@ -79,8 +79,8 @@ export default function Water({ plan }: { plan: Plan }) {
           </div>
           {ghRo && (
             <div className="result" data-testid="ro-result">
-              <b>RO 兑水方案（降 GH）：</b> 自来水 {ghRo.roL.toFixed(1)}L + RO 纯水 {ghRo.tapL.toFixed(1)}L，
-              RO 占 {(ghRo.tapRatio * 100).toFixed(0)}%
+              <b>RO 兑水方案（降 GH）：</b> 自来水 {ghRo.tapL.toFixed(1)}L + RO 纯水 {ghRo.roL.toFixed(1)}L，
+              RO 占 {(ghRo.roRatio * 100).toFixed(0)}%
               <div className="muted small">{ghRo.applicable}</div>
             </div>
           )}
